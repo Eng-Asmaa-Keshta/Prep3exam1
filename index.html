@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ICT Exam Arena – الصف الثالث الإعدادي</title>
+<style>
+:root{--bg:#06080f;--card:#0f1626;--line:#1e2b47;--tx:#e8edf7;--mut:#8593b3;--g:#39ff88;--r:#ff3b5c;--c:#22d3ee;--y:#ffd23f;--p:#a855f7;color-scheme:dark}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%}
+body{background:radial-gradient(900px 500px at 85% -10%,#1d1145 0,transparent 60%),radial-gradient(700px 400px at 0 100%,#062b3a 0,transparent 60%),var(--bg);color:var(--tx);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;-webkit-tap-highlight-color:transparent;padding-top:env(safe-area-inset-top,0);padding-bottom:env(safe-area-inset-bottom,0)}
+#app{max-width:640px;margin:0 auto;padding:12px 14px 40px}
+h1{font-size:30px;margin:8px 0;text-align:center;font-family:Consolas,monospace;letter-spacing:1px;background:linear-gradient(90deg,var(--c),var(--g),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{text-align:center;color:var(--mut);margin:4px 0 14px;line-height:1.7}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+input,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);background:#0a1020;color:var(--tx);font-size:17px;font-family:inherit;margin:6px 0}
+textarea{min-height:190px;direction:ltr;text-align:left;line-height:1.6;resize:vertical}
+.btn{width:100%;padding:14px;border:0;border-radius:12px;font-size:18px;font-weight:700;color:#04110a;background:linear-gradient(90deg,var(--g),var(--c));cursor:pointer;font-family:inherit}
+.btn.alt{background:transparent;color:var(--c);border:1px solid var(--c)}.btn.red{background:linear-gradient(90deg,var(--r),#ff7a3b);color:#fff}.btn.sm{width:auto;padding:10px 16px;font-size:15px}
+.btn:disabled{opacity:.35}
+.top{position:sticky;top:0;z-index:5;background:rgba(6,8,15,.92);backdrop-filter:blur(8px);padding:8px 0 6px;margin:-12px -14px 8px;padding-inline:14px;border-bottom:1px solid var(--line)}
+.hud{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.chip{padding:6px 11px;border-radius:20px;border:1px solid var(--line);background:#0a1020;font-weight:700;font-size:14px;white-space:nowrap}
+.tm{font-family:Consolas,monospace;font-size:20px;color:var(--c);direction:ltr}.tm.low{color:var(--r);animation:pl 1s infinite}
+@keyframes pl{50%{opacity:.45}}
+.bar{height:7px;border-radius:6px;background:#0a1020;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;transition:width .4s}
+#tb{background:linear-gradient(90deg,var(--g),var(--y),var(--r))}#xb{background:linear-gradient(90deg,var(--p),var(--c))}
+.stg{color:var(--p);font-weight:800;font-family:Consolas,monospace;font-size:14px;letter-spacing:.5px}
+.q{font-size:19px;line-height:1.55;direction:ltr;text-align:left;font-weight:600;margin:8px 0 12px}
+pre{direction:ltr;text-align:left;background:#060b16;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:15px;color:var(--g);overflow:auto;margin:8px 0}
+.op{display:flex;gap:10px;align-items:center;width:100%;direction:ltr;text-align:left;padding:13px;margin:8px 0;border-radius:12px;border:1.5px solid var(--line);background:#0a1020;color:var(--tx);font-size:17px;cursor:pointer;transition:.15s;font-family:inherit}
+.op b{min-width:26px;height:26px;border-radius:8px;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:14px}
+.op.on{border-color:var(--c);background:#0b2a3a;box-shadow:0 0 14px rgba(34,211,238,.35)}.op.on b{background:var(--c);color:#041018}
+.tf{display:flex;gap:10px}.tf .op{justify-content:center;font-size:22px;font-weight:800;padding:20px;direction:rtl}
+.tf .op.on.t{border-color:var(--g);background:#0b3a22;box-shadow:0 0 14px rgba(57,255,136,.35)}.tf .op.on.f{border-color:var(--r);background:#3a0e1b;box-shadow:0 0 14px rgba(255,59,92,.35)}
+.nav{display:flex;gap:8px;margin-top:12px}.nav .btn{flex:1}
+.pal{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.pc{padding:12px 0;border-radius:10px;border:1px solid var(--line);background:#0a1020;text-align:center;font-weight:700;cursor:pointer;color:var(--tx)}
+.pc.a{background:#0d4a2a;border-color:var(--g)}.pc.f{border-color:var(--y);color:var(--y)}.pc.cu{outline:2px solid var(--c)}
+.ov{position:fixed;inset:0;background:rgba(3,5,10,.95);z-index:20;overflow:auto;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0))}
+.pop{position:fixed;top:90px;left:50%;transform:translateX(-50%);z-index:15;font-weight:800;color:var(--y);animation:up 1s forwards;pointer-events:none;font-size:20px}
+@keyframes up{to{opacity:0;top:60px}}
+.stage{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,7,14,.96);animation:fi 1.8s forwards;pointer-events:none;text-align:center}
+@keyframes fi{0%{opacity:0}15%,80%{opacity:1}100%{opacity:0}}.stage h1{font-size:44px}
+.big{font-size:64px;font-weight:900;font-family:Consolas,monospace;text-align:center;background:linear-gradient(90deg,var(--y),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rv{border-inline-start:5px solid var(--line);padding:10px 12px;margin:10px 0;background:#0a1020;border-radius:10px}.rv.ok{border-color:var(--g)}.rv.no{border-color:var(--r)}.rv.sk{border-color:var(--y)}
+.rv .qq{direction:ltr;text-align:left;font-weight:600;margin-bottom:6px}.rv small{color:var(--mut)}.ex{margin-top:6px;color:var(--c);font-size:15px;line-height:1.6}
+.lb{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:14px}.lb span{flex:0 0 150px}.lb .bar{flex:1;margin:0}
+.tag{color:var(--y);font-weight:800}.kw{display:inline-block;margin:3px;padding:3px 9px;border-radius:12px;font-size:13px;direction:ltr}.kw.y{background:#0d4a2a;color:var(--g)}.kw.n{background:#3a0e1b;color:#ff8da2}
+.ans{direction:ltr;text-align:left;white-space:pre-wrap;background:#060b16;border-radius:8px;padding:8px;margin:6px 0;font-size:14px}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:40}
+</style></head><body><div id="app"></div><canvas id="cf"></canvas>
+<script>
+const CFG={email:"PUT_YOUR_EMAIL_HERE",min:45};
+const LN=["U1·L1 التفكير الحاسوبي","U1·L2 خوارزميات الذكاء","U1·L3 Strings & Lists","U1·L4 Functions","U1·L5 معالجة الأخطاء","U2·L1 نموذج التنبؤ","U2·L2 الملكية والخصوصية"];
+// MCQ bank: [question||code, options, correctIndex, explanation]
+const M=[
+[["Which is the first and basic step in computational thinking when facing a new problem?",["Pattern Recognition","Decomposition","Abstraction","Algorithm Design"],1,"أول خطوة هي Decomposition: تقسيم المشكلة الكبيرة لأجزاء أصغر."],
+["What is the term for focusing on important information and ignoring unnecessary details?",["Algorithm Design","Decomposition","Abstraction","Pattern Recognition"],2,"ده تعريف Abstraction: نركّز على المهم ونتجاهل التفاصيل."],
+["Creating clear, logically ordered steps to reach a solution is called:",["Algorithm design","Abstraction","Identifying the inputs","Converting the solution into code"],0,"ترتيب الخطوات بوضوح ومنطق = Algorithm Design."],
+["What happens if the user enters the word \"ten\" in int(input())?",["It is converted to 10","The variable becomes 0","A ValueError occurs","The input is ignored"],2,"int() مبتحوّلش الكلمات لأرقام، فبيحصل ValueError."],
+["Which expression correctly calculates the average of three numbers a, b, c?",["a + b + c / 3","a + (b + c) / 3","(a + b + c) / 3","a * b * c / 3"],2,"لازم الأقواس عشان الجمع يتم الأول وبعدين القسمة على 3."]],
+[["Which flowchart shape is used for making a decision or checking a condition?",["Oval","Rectangle","Diamond","Parallelogram"],2,"المعيّن (Diamond) للقرار أو الشرط."],
+["Which type of algorithm executes one step after another in a fixed order?",["Conditional","Iterative","Sequential","Search"],2,"Sequential: خطوة ورا خطوة زي قراية الكتاب من أول صفحة لآخرها."],
+["What is the output of this code?||for i in range(3):\n    print(\"Hello\")",["Hello once","Hello three times","Hello five times","An error occurs"],1,"range(3) بتدّي 0,1,2 يعني 3 مرات."],
+["Which Python function is used to sort a list of numbers?",["reverse()","find()","sort()","search()"],2,"sort() بترتّب القايمة، أما reverse() فبتعكسها."],
+["What is the main difference between traditional algorithms and AI algorithms?",["Traditional ones are always faster","AI algorithms learn from data","AI algorithms do not need data","Traditional ones are more complex"],1,"خوارزميات الذكاء الاصطناعي بتتعلّم من البيانات."]],
+[["What is the output of this code?||text = \"Python\"\nprint(len(text))",["5","6","7","Error"],1,"كلمة Python فيها 6 حروف."],
+["What is the output of this code?||text = \"hello\"\nprint(text[-1])",["h","e","l","o"],3,"الـ index -1 بيرجّع آخر حرف وهو o."],
+["What is the output of this code?||names = [\"Ahmed\", \"Ali\"]\nnames.append(\"Sara\")\nprint(names)",["[\"Ahmed\", \"Ali\"]","[\"Sara\", \"Ahmed\", \"Ali\"]","[\"Ahmed\", \"Ali\", \"Sara\"]","Error"],2,"append() بتضيف العنصر في آخر القايمة."],
+["What is the output of this code?||names = [\"Ahmed\", \"Ali\", \"Sara\"]\nnames.remove(\"Ali\")\nprint(names)",["[\"Ahmed\", \"Ali\", \"Sara\"]","[\"Ahmed\", \"Sara\"]","[\"Ali\", \"Sara\"]","Error"],1,"remove() بتمسح العنصر المحدد من القايمة."],
+["What is the main difference between a string and a list?",["A string uses [] and a list uses quotes","A list is mutable, a string is immutable","A string contains numbers only","A list cannot contain strings"],1,"القايمة (list) ينفع تتعدّل، أما الـ string فلا."]],
+[["Which keyword is used to define a function in Python?",["function","define","def","func"],2,"الكلمة هي def."],
+["In this code, what is name?||def greet(name):",["The function name","A parameter of the function","A data type","A constant value"],1,"name ده parameter جوه الأقواس. اسم الدالة هو greet."],
+["What is the output of this code?||def add_numbers(a, b):\n    result = a + b\n    print(result)\nadd_numbers(3, 5)",["Nothing is printed","8","35","An error occurs"],1,"3 + 5 = 8 وبيتطبع بـ print."],
+["What is the difference between print() and return inside a function?",["No difference","print() is faster","print() shows the value, return sends it back to the caller","return displays it on the screen only"],2,"print تعرض على الشاشة، return ترجّع القيمة للمكان اللي اتندهت منه."],
+["What is the output of this code?||def circle_area(radius):\n    pi = 3.14\n    return pi * radius * radius\nprint(circle_area(5))",["15.7","31.4","78.5","314.0"],2,"3.14 × 5 × 5 = 78.5"]],
+[["What error appears when the user enters a word instead of a number in int(input())?",["TypeError","NameError","ValueError","SyntaxError"],2,"إدخال كلمة بدل رقم = ValueError."],
+["Which error occurs when dividing by zero?",["ValueError","TypeError","ZeroDivisionError","IndexError"],2,"القسمة على صفر = ZeroDivisionError."],
+["What is the output of this code?||try:\n    num = int(\"abc\")\nexcept:\n    print(\"Error!\")",["abc","Nothing is printed","Error!","The program stops with an error"],2,"int(\"abc\") بيفشل فيتنفّذ except وبيطبع Error!"],
+["What is the role of break in this code?||while True:\n    try:\n        num = int(input())\n        break\n    except:\n        print(\"Try again!\")",["Stop the whole program","Move to except","Exit the loop when the input is valid","Repeat the loop once more"],2,"break بتخرجنا من while لما الإدخال يبقى صح."],
+["What is the output of this code?||try:\n    num = int(\"50\")\n    print(num * 2)\nexcept ValueError:\n    print(\"Wrong input!\")",["Wrong input!","50","100","Error"],2,"\"50\" بتتحوّل لرقم سليم، فالناتج 100."]],
+[["In y = w * x + b, what does x represent?",["The predicted grade","The change in grade","The number of study hours (input)","The constant value"],2,"x هو المدخل: ساعات المذاكرة."],
+["In y = 10 * x + 40, what is the predicted grade when x = 2?",["64","60","70","20"],1,"10 × 2 + 40 = 60"],
+["What is the output of this code?||def predict_grade(x):\n    w = 5\n    b = 10\n    return w * x + b\nprint(predict_grade(3))",["17","25","35","60"],1,"5 × 3 + 10 = 25"],
+["Study hours x = 0 gives grade 30, and x = 2 gives grade 40. What are w and b?",["w = 30, b = 5","w = 35, b = 30","w = 5, b = 30","w = 45, b = 0"],2,"b هو الدرجة عند x=0 يعني 30، والزيادة 10 لكل ساعتين يعني w = 5."],
+["What does w = 10 mean in y = 10 * x + 40?",["The student starts with 10 points","Each study hour adds 10 points","The student studies 10 hours","The maximum grade is 10"],1,"w هو مقدار الزيادة في الدرجة لكل ساعة مذاكرة."]],
+[["What is meant by the Three Sources Rule when using AI?",["Rely only on AI","Verify information using AI, a search engine, and a book/expert","Share data with three apps","Use three passwords"],1,"اتأكد من المعلومة من 3 مصادر: الذكاء الاصطناعي ومحرك بحث وكتاب أو خبير."],
+["Which information should you avoid sharing with AI applications?",["A school project idea","Your full name and home address","A general maths question","A short story you wrote"],1,"الاسم الكامل والعنوان بيانات شخصية (PII)."],
+["What is the basic age requirement for most AI applications?",["At least 10 years","At least 13 years","At least 21 years","No age requirement"],1,"أغلب التطبيقات بتشترط 13 سنة على الأقل في شروط الاستخدام."],
+["What is the right to deletion in the Terms of Service of AI apps?",["Deleting the app from the phone","Permanently deleting conversation history from the servers","Deleting your password","Deleting photos from the gallery"],1,"حق الحذف = مسح سجل المحادثات نهائيًا من سيرفرات التطبيق."],
+["Why should you state that you used AI in research or writing?",["To avoid plagiarism","To depend completely on AI","To get higher grades","Because AI always requires it"],0,"التوثيق وذكر استخدام الذكاء الاصطناعي بيجنّبك الانتحال."]]
+];
+// True/False bank: [statement, isTrue, explanation]
+const T=[
+[["Identifying the inputs and outputs of a problem uses the skill of abstraction.",true,"في الدرس: تحديد المدخلات والمخرجات بيستخدم Abstraction."],
+["Decomposition means focusing on important information and ignoring unnecessary details.",false,"ده تعريف Abstraction. الـ Decomposition هو تقسيم المشكلة."],
+["If the remainder of a number divided by 2 is zero, the number is odd.",false,"باقي القسمة صفر يعني العدد زوجي (even)."],
+["It is better to use float than int when calculating an average, to avoid losing the decimal part.",true,"float بيحافظ على الكسور العشرية ودقة النتيجة."],
+["In Python, the input() function is used to display results on the screen.",false,"input() بتستقبل البيانات، وprint() هي اللي بتعرض."]],
+[["The oval shape in a flowchart is used for mathematical operations.",false,"الشكل البيضاوي للبداية والنهاية."],
+["The parallelogram in a flowchart is used for input and output.",true,"متوازي الأضلاع للإدخال والإخراج."],
+["Iterative algorithms execute an operation only once.",false,"الـ Iterative بتكرر العملية أكتر من مرة."],
+["Deep learning uses neural networks to simulate the way the human brain works.",true,"الـ Deep Learning بيعتمد على الشبكات العصبية."],
+["A program that predicts success using if score >= 50 is an AI example.",false,"ده شرط ثابت كتبه المبرمج، مش تعلّم من بيانات."]],
+[["Indexing inside a string starts from 1, not from 0.",false,"الـ index بيبدأ من 0."],
+["The upper() function converts all characters of a string to lowercase.",false,"upper() بتحوّل لحروف كبيرة (uppercase)."],
+["The in operator searches inside a string and returns either True or False.",true,"in بترجّع True أو False."],
+["A list is an ordered collection of values enclosed within square brackets [ ].",true,"القايمة بين أقواس مربعة []."],
+["A string is mutable and can be modified after it is created.",false,"الـ string مينفعش يتعدّل، أما الـ list فينفع."]],
+[["Parameters are values that are returned by the function after it is executed.",false,"الـ parameters هي القيم اللي بنبعتها للدالة، مش اللي بترجعها."],
+["When calling add_numbers(3, 5), the values 3 and 5 are called arguments.",true,"القيم الفعلية وقت الاستدعاء اسمها arguments."],
+["A function must always contain return to work correctly.",false,"الدالة ممكن تشتغل بـ print من غير return."],
+["The variable pi = 3.14 inside the area_circle function can be accessed from outside the function.",false,"المتغير جوه الدالة ملوش وجود برّاها (local)."],
+["Using functions helps avoid code repetition and organizes the program.",true,"الدوال بتقلل التكرار وبتنظّم البرنامج."]],
+[["The code inside except is executed when an error occurs in the try block.",true,"except بتشتغل لما يحصل خطأ في try."],
+["int(\"123\") produces a ValueError.",false,"\"123\" رقم صالح فمفيش خطأ."],
+["except can be used without try in the same program.",false,"except لازم تيجي مع try."],
+["The program stops automatically when an error occurs if we do not use try and except.",true,"من غير try/except البرنامج بيقف برسالة خطأ."],
+["More than one except block can be used to handle different types of errors.",true,"ينفع نكتب except لكل نوع خطأ."]],
+[["A traditional program learns from data and improves its performance over time.",false,"البرنامج التقليدي بيتبع تعليمات ثابتة. التعلّم من البيانات للذكاء الاصطناعي."],
+["In y = 10 * x + 40, a student who does not study (x = 0) gets a grade of 40.",true,"10 × 0 + 40 = 40"],
+["Prediction is estimating an unknown value based on previous data and an existing pattern.",true,"ده تعريف التنبؤ."],
+["In y = w * x + b, the symbol x represents the predicted grade.",false,"x هو المدخل (ساعات المذاكرة). الدرجة المتوقعة هي y."],
+["An AI model requires every rule to be written manually by the programmer.",false,"النموذج بيتعلم النمط من البيانات."]],
+[["Anything you write to an AI application should be treated as a public post.",true,"افترض إن أي حاجة بتكتبها ممكن تتشاف أو تتخزّن."],
+["Your phone number is an example of Personally Identifiable Information (PII).",true,"رقم التليفون بيانات شخصية تحدد هويتك."],
+["Passwords can be safely stored and organized by an AI application.",false,"كلمات السر ممنوع تتشارك مع تطبيقات الذكاء الاصطناعي."],
+["When using digital content, you should check who owns the image and the written text.",true,"لازم تتأكد من مالك المحتوى وحقوقه."],
+["AI should replace your own thinking when you are researching information.",false,"الذكاء الاصطناعي مساعد بس، مش بديل لتفكيرك."]]
+];
+// Essays: [unitPool, question, model answer, keywords [label, regex]]
+const E=[
+["Explain the four steps of computational thinking, then apply them to calculating the area of a rectangle.","Decomposition: break the problem into parts (enter the length, enter the width, calculate the area).\nPattern recognition: Area = Length × Width, a rule similar to earlier problems.\nAbstraction: focus only on the length and the width and ignore unnecessary details like colors or fonts.\nAlgorithm design: 1) Enter the length. 2) Enter the width. 3) Multiply length by width. 4) Display the area.",[["Decomposition","decompos"],["Pattern recognition","pattern"],["Abstraction","abstract"],["Algorithm","algorithm"],["Length","length"],["Width","width"],["Multiply","multipl|×|\\*"]]],
+["Explain the role of try and except in Python. What happens if the user enters a word instead of a number in int(input())? Give an example.","try contains the code that may cause an error, and except runs when an error happens so the program does not stop and a clear message is shown. If the user enters a word, int() raises a ValueError. Example:\ntry:\n    num = int(input(\"Enter a number: \"))\nexcept ValueError:\n    print(\"Please enter numbers only\")",[["try","\\btry\\b"],["except","except"],["ValueError","valueerror"],["int()","int"],["Program does not stop","stop|crash|continue"],["Message to the user","message|print"]]],
+["Compare traditional programming with an artificial intelligence model, then explain the linear model y = w * x + b.","Traditional programming follows fixed instructions written step by step by the programmer. An AI model learns from previous data, discovers a pattern, and uses it to predict new results. In the linear model y = w * x + b: x is the input (study hours), y is the predicted grade (output), w is the amount the grade increases for each extra hour, and b is the bias, the grade when x = 0.",[["Fixed instructions","fixed|rules|instructions"],["Learns from data","learn|data"],["Prediction","predict"],["Pattern","pattern"],["x = input","\\bx\\b|input|hours"],["y = output","\\by\\b|output|grade"],["w","\\bw\\b"],["b / bias","\\bb\\b|bias"]]],
+["Explain the Three Sources Rule, and mention two rules that protect your privacy when using AI applications.","The Three Sources Rule means verifying information from three sources: the AI application, a search engine or encyclopedia, and a book or an expert. To protect privacy: do not share personal information such as your full name, address, phone number or passwords, do not share family secrets or private photos, treat what you write as a public post, and check the Terms of Service and the right to deletion.",[["Three sources","three|3"],["Search engine","search|encyclopedia"],["Book / expert","book|expert"],["Personal information","personal|pii|name|address|phone"],["Passwords","password"],["Terms of Service","terms|tos"],["Right to deletion","delet"]]]
+];
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const KEY="ict_exam_v1";let S=null,tm=null;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.qs)return s}catch(e){}return null}
+function build(){const qs=[];
+M.forEach((b,l)=>shuf(b.map((_,i)=>i)).slice(0,3).sort().forEach(i=>qs.push({t:"m",l,i,o:shuf([0,1,2,3])})));
+T.forEach((b,l)=>shuf(b.map((_,i)=>i)).slice(0,2).forEach(i=>qs.push({t:"t",l,i})));
+qs.push({t:"e",i:Math.random()<.5?0:1},{t:"e",i:Math.random()<.5?2:3});return qs}
+const get=q=>q.t==="m"?M[q.l][q.i]:q.t==="t"?T[q.l][q.i]:E[q.i];
+const STG={m:["المرحلة 1","MCQ ⚡"],t:["المرحلة 2","صح أو غلط 🎯"],e:["المرحلة 3 • BOSS","Essay 👑"]};
+const RANK=[[0,"🥉 Rookie"],[25,"🥈 Coder"],[50,"🥇 Hacker"],[75,"💎 Elite"],[95,"👑 Legend"]];
+function home(){const old=load();$("#app").innerHTML=`<h1>ICT EXAM ARENA</h1><div class="sub">الصف الثالث الإعدادي • ICT • الترم الأول<br>الوحدة الأولى كاملة + الدرس الأول والتاني من الوحدة التانية</div>
+<div class="card"><input id="nm" maxlength="40" placeholder="اكتب اسمك بالكامل" value="${old&&old.done?"":esc((old&&old.name)||"")}">
+<div class="sub" style="margin:8px 0">📝 35 سؤال (MCQ + صح/غلط) + سؤالين Essay<br>⏱ 45 دقيقة بتايمر واحد للامتحان كله<br>🎮 3 مراحل • اكسب XP وارتقي في الرانك<br>📩 نتيجتك بتتبعت للمدرّسة أوتوماتيك في الآخر<br>✅ التصحيح التفصيلي بيظهر بعد التسليم</div>
+<button class="btn" id="go">ابدأ الامتحان 🚀</button></div>
+${old&&!old.done?`<button class="btn alt" id="rs">⏩ كمّل الامتحان اللي كنت بتحله (${esc(old.name)})</button>`:""}`;
+$("#go").onclick=()=>{const n=$("#nm").value.trim();if(n.length<3)return alert("اكتب اسمك بالكامل الأول");S={name:n,qs:build(),a:{},f:{},cur:0,xp:0,start:Date.now(),end:Date.now()+CFG.min*60000,done:false};save();run()};
+if(old&&!old.done)$("#rs").onclick=()=>{S=old;run()}}
+function run(){tick();clearInterval(tm);tm=setInterval(tick,500);draw();banner()}
+function tick(){const left=S.end-Date.now();if(left<=0&&!S.done){return finish(true)}const t=$("#tm");if(!t)return;const s=Math.max(0,left/1000|0);t.textContent=`${String(s/60|0).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;t.classList.toggle("low",s<300);$("#tb").style.width=Math.max(0,left/(CFG.min*600))+"%"}
+const prog=()=>Object.keys(S.a).filter(k=>S.a[k]!==undefined&&S.a[k]!==""&&(S.qs[k].t!=="e"||String(S.a[k]).trim().split(/\s+/).length>=5)).length;
+function rank(){const p=prog()/S.qs.length*100;let r=RANK[0][1];RANK.forEach(x=>{if(p>=x[0])r=x[1]});return r}
+function draw(){const q=S.qs[S.cur],d=get(q),k=S.cur,st=STG[q.t];let body="";
+if(q.t==="m"){const [tx,code]=d[0].split("||");body=`<div class="q">${esc(tx)}</div>${code?`<pre>${esc(code)}</pre>`:""}`+q.o.map((oi,pos)=>`<button class="op ${S.a[k]===oi?"on":""}" onclick="pick(${oi})"><b>${"ABCD"[pos]}</b><span>${esc(d[1][oi])}</span></button>`).join("")}
+else if(q.t==="t"){body=`<div class="q">${esc(d[0])}</div><div class="tf"><button class="op t ${S.a[k]===true?"on t":""}" onclick="pick(true)">✓ True</button><button class="op f ${S.a[k]===false?"on f":""}" onclick="pick(false)">✗ False</button></div>`}
+else{body=`<div class="q">${esc(d[0])}</div><textarea id="es" placeholder="Write your answer here…" oninput="ess(this.value)">${esc(S.a[k]||"")}</textarea><div class="sub" id="wc"></div>`}
+const last=k===S.qs.length-1;
+$("#app").innerHTML=`<div class="top"><div class="hud"><span class="chip tm" id="tm">--:--</span><span class="chip">${rank()}</span><span class="chip">⚡ ${S.xp} XP</span></div><div class="bar"><i id="tb" style="width:100%"></i></div></div>
+<div class="hud"><span class="stg">${st[0]} • ${st[1]}</span><span class="chip">${k+1} / ${S.qs.length}</span></div>
+<div class="bar"><i id="xb" style="width:${prog()/S.qs.length*100}%"></i></div>
+<div class="card"><div class="hud"><small style="color:var(--mut)">${q.t==="e"?"Essay • 5 درجات":LN[q.l]}</small><button class="chip" style="color:${S.f[k]?"var(--y)":"var(--mut)"}" onclick="flag()">🚩 ${S.f[k]?"متعلّم":"علّم"}</button></div>${body}</div>
+<div class="nav"><button class="btn alt" onclick="mv(-1)" ${k?"":"disabled"}>→ السابق</button><button class="btn alt" onclick="pal()">🗂 الأسئلة</button>${last?`<button class="btn red" onclick="ask()">تسليم 🏁</button>`:`<button class="btn" onclick="mv(1)">التالي ←</button>`}</div>`;
+tick();if(q.t==="e")ess(S.a[k]||"",1)}
+function pick(v){const k=S.cur;if(S.a[k]===undefined){S.xp+=10;pop("+10 XP")}S.a[k]=v;save();draw()}
+function ess(v,nox){const k=S.cur,n=v.trim()?v.trim().split(/\s+/).length:0;const was=(S.a[k]||"").trim().split(/\s+/).length>=20;S.a[k]=v;if(!was&&n>=20&&!nox){S.xp+=30;pop("+30 XP 👑")}const w=$("#wc");if(w)w.textContent=n+" كلمة";save()}
+function flag(){S.f[S.cur]=!S.f[S.cur];save();draw()}
+function mv(d){const o=S.qs[S.cur].t;S.cur=Math.max(0,Math.min(S.qs.length-1,S.cur+d));save();draw();if(S.qs[S.cur].t!==o)banner();scrollTo(0,0)}
+function banner(){const t=STG[S.qs[S.cur].t],d=document.createElement("div");d.className="stage";d.innerHTML=`<h1>${t[0]}</h1><div class="sub" style="font-size:24px">${t[1]}</div>`;document.body.appendChild(d);setTimeout(()=>d.remove(),1800)}
+function pop(t){const d=document.createElement("div");d.className="pop";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1000);try{navigator.vibrate&&navigator.vibrate(20)}catch(e){}}
+function pal(){const o=document.createElement("div");o.className="ov";o.id="pv";o.innerHTML=`<h1>🗂 خريطة الأسئلة</h1><div class="sub">أخضر = اتجاوب • أصفر = متعلّم</div><div class="pal">${S.qs.map((q,i)=>`<div class="pc ${S.a[i]!==undefined&&S.a[i]!==""?"a":""} ${S.f[i]?"f":""} ${i===S.cur?"cu":""}" onclick="jump(${i})">${i+1}</div>`).join("")}</div><button class="btn alt" style="margin-top:14px" onclick="$('#pv').remove()">رجوع</button>`;document.body.appendChild(o)}
+function jump(i){$("#pv").remove();const o=S.qs[S.cur].t;S.cur=i;save();draw();if(S.qs[i].t!==o)banner()}
+function ask(){const un=S.qs.length-prog();const o=document.createElement("div");o.className="ov";o.id="pv";o.innerHTML=`<h1>تسليم الامتحان؟</h1><div class="sub">${un?`فيه <span class="tag">${un}</span> سؤال لسه متحلّش أو إجابته ناقصة.`:"كل الأسئلة اتجاوبت 👏"}<br>بعد التسليم مش هتقدر تعدّل.</div><button class="btn red" onclick="finish()">أيوه سلّم 🏁</button><button class="btn alt" style="margin-top:10px" onclick="$('#pv').remove()">لأ، كمّل</button>`;document.body.appendChild(o)}
+function kwHit(a,e){return e[3].map(k=>[k[0],new RegExp(k[1],"i").test(a||"")])}
+function finish(auto){clearInterval(tm);S.done=true;S.endedAt=Date.now();save();const p=$("#pv");if(p)p.remove();results(auto)}
+function evalAll(){let m=0,mt=0,t=0,tt=0;const per=LN.map(()=>({c:0,n:0})),items=[];
+S.qs.forEach((q,k)=>{const d=get(q),a=S.a[k];if(q.t==="e"){const h=kwHit(a,d),f=h.filter(x=>x[1]).length;items.push({k,q,d,a,h,est:Math.round(5*f/h.length*10)/10});return}
+const ok=q.t==="m"?a===d[2]:a===d[1];if(q.t==="m"){mt++;if(ok)m++}else{tt++;if(ok)t++}per[q.l].n++;if(ok)per[q.l].c++;items.push({k,q,d,a,ok,sk:a===undefined})});
+return{m,mt,t,tt,per,items,auto:m+t,tot:mt+tt,est:items.filter(i=>i.q.t==="e").reduce((s,i)=>s+i.est,0)}}
+const optTxt=(q,d,v)=>v===undefined?"لم تجب":q.t==="m"?d[1][v]:v?"True":"False";
+const corTxt=(q,d)=>q.t==="m"?d[1][d[2]]:d[1]?"True":"False";
+function report(R){const mins=Math.round(((S.endedAt||Date.now())-S.start)/60000);let s=`📊 نتيجة امتحان ICT – الصف الثالث الإعدادي\nالطالب: ${S.name}\nالدرجة (MCQ + صح/غلط): ${R.auto} / ${R.tot}\nMCQ: ${R.m}/${R.mt} • صح/غلط: ${R.t}/${R.tt}\nالـ Essay: بانتظار تصحيحك (التقدير المبدئي بالكلمات المفتاحية: ${R.est.toFixed(1)} / 10)\nالزمن المستغرق: ${mins} دقيقة من ${CFG.min}\n\nالأداء لكل درس:\n`;
+R.per.forEach((p,i)=>s+=`- ${LN[i]}: ${p.c}/${p.n}\n`);s+="\nالأسئلة الغلط:\n";
+R.items.filter(i=>i.q.t!=="e"&&!i.ok).forEach(i=>s+=`#${i.k+1} [${LN[i.q.l]}] ${i.d[0].split("||")[0]}\n   إجابته: ${optTxt(i.q,i.d,i.a)} | الصح: ${corTxt(i.q,i.d)}\n`);
+R.items.filter(i=>i.q.t==="e").forEach((i,n)=>s+=`\n✍️ Essay ${n+1}: ${i.d[0]}\nإجابة الطالب:\n${i.a||"(فاضي)"}\n`);return s}
+async function send(R,box){const rep=report(R);window._rep=rep;const set=(h)=>box.innerHTML=h;if(S.sent){set(`<span style="color:var(--g)">✅ تم إرسال نتيجتك للمدرّسة</span>`);return}
+if(!CFG.email||CFG.email.startsWith("PUT")){set(`<span class="tag">⚠️ لم يتم ضبط إيميل المدرّسة</span>`);return}
+set("⏳ بيتبعت لمدرّسة…");
+for(let a=0;a<3;a++){try{const r=await fetch("https://formsubmit.co/ajax/"+CFG.email,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({_subject:`ICT Exam: ${S.name} – ${R.auto}/${R.tot}`,_captcha:"false",_template:"box","الاسم":S.name,"الدرجة":R.auto+" / "+R.tot,"التقرير":rep})});const j=await r.json().catch(()=>({}));if(r.ok&&(j.success===true||j.success==="true")){set(`<span style="color:var(--g)">✅ تم إرسال نتيجتك للمدرّسة</span>`);S.sent=true;save();return}}catch(e){}await new Promise(r=>setTimeout(r,1500))}
+set(`<span style="color:var(--r)">❌ الإرسال التلقائي فشل (النت؟)</span><br><small>ابعت التقرير للمدرّسة بالزرار اللي تحت</small>`)}
+function results(auto){const R=evalAll(),pct=R.auto/R.tot*100,rk=RANK.slice().reverse().find(x=>pct>=x[0])[1];
+$("#app").innerHTML=`<h1>${auto?"⏰ الوقت خلص!":"🏁 خلّصت الامتحان"}</h1><div class="sub">${esc(S.name)}</div>
+<div class="card"><div class="big" id="bs">0</div><div class="sub" style="margin:0">من ${R.tot} (MCQ + صح/غلط) • ${rk}</div>
+<div class="sub">MCQ: ${R.m}/${R.mt} • صح/غلط: ${R.t}/${R.tt}<br>الـ Essay (10 درجات) بيصحّحهم المدرّس • تقدير مبدئي: <span class="tag">${R.est.toFixed(1)}</span></div>
+<div class="sub" id="st"></div></div>
+<div class="card"><b>📈 أداءك في كل درس</b>${R.per.map((p,i)=>{const v=p.c/p.n*100;return `<div class="lb"><span>${LN[i]}</span><div class="bar"><i style="width:${v}%;background:${v>=80?"var(--g)":v>=50?"var(--y)":"var(--r)"}"></i></div><b>${p.c}/${p.n}</b></div>`}).join("")}
+${(()=>{const w=R.per.map((p,i)=>[i,p.c/p.n]).filter(x=>x[1]<.7).map(x=>LN[x[0]]);return w.length?`<div class="sub" style="text-align:right;margin-top:10px">🎯 ركّز مراجعتك على: <span class="tag">${w.join(" • ")}</span></div>`:`<div class="sub">🔥 مستواك ممتاز في كل الدروس!</div>`})()}</div>
+<div class="card"><button class="btn alt" onclick="fl('x')" id="fx">عرض الأخطاء فقط</button></div><div id="rvs"></div>
+<div class="card"><button class="btn alt" onclick="wa()">📲 ابعت التقرير للمدرّسة واتساب</button><button class="btn alt" style="margin-top:8px" onclick="cp()">📋 انسخ التقرير</button><button class="btn" style="margin-top:8px" onclick="localStorage.removeItem(KEY);home()">🔄 امتحان جديد</button></div>`;
+let n=0;const tg=R.auto,iv=setInterval(()=>{n+=Math.max(1,Math.ceil(tg/25));if(n>=tg){n=tg;clearInterval(iv)}$("#bs").textContent=n},40);
+rv(R,false);window._R=R;send(R,$("#st"));if(pct>=70)confetti()}
+function rv(R,onlyBad){$("#rvs").innerHTML=R.items.filter(i=>!onlyBad||(i.q.t!=="e"&&!i.ok)).map(i=>{const q=i.q,d=i.d;
+if(q.t==="e")return `<div class="rv sk"><small>#${i.k+1} • Essay • ${i.est.toFixed(1)}/5 تقدير مبدئي (المدرّس هيصحّح)</small><div class="qq">${esc(d[0])}</div><b>إجابتك:</b><div class="ans">${esc(i.a||"(فاضي)")}</div><b>النقاط اللي المفروض تكون موجودة:</b><div>${i.h.map(x=>`<span class="kw ${x[1]?"y":"n"}">${x[1]?"✓":"✗"} ${esc(x[0])}</span>`).join("")}</div><b>الإجابة النموذجية:</b><div class="ans">${esc(d[1])}</div></div>`;
+const [tx,code]=(q.t==="m"?d[0]:d[0]).split("||");return `<div class="rv ${i.sk?"sk":i.ok?"ok":"no"}"><small>#${i.k+1} • ${LN[q.l]} • ${i.ok?"✅ صح":i.sk?"⚠️ ما اتجاوبش":"❌ غلط"}</small><div class="qq">${esc(tx)}</div>${code?`<pre>${esc(code)}</pre>`:""}${i.ok?`<div>إجابتك: <b style="color:var(--g)">${esc(optTxt(q,d,i.a))}</b></div>`:`<div>إجابتك: <b style="color:var(--r)">${esc(optTxt(q,d,i.a))}</b><br>الإجابة الصحيحة: <b style="color:var(--g)">${esc(corTxt(q,d))}</b></div>`}<div class="ex">💡 ${esc(q.t==="m"?d[3]:d[2])}</div></div>`}).join("")||`<div class="sub">🎉 مفيش أخطاء!</div>`}
+function fl(m){const b=$("#fx"),on=b.dataset.on!=="1";b.dataset.on=on?"1":"0";b.textContent=on?"عرض كل الأسئلة":"عرض الأخطاء فقط";rv(window._R,on)}
+function wa(){window.open("https://wa.me/?text="+encodeURIComponent(window._rep.slice(0,3500)),"_blank")}
+function cp(){const t=window._rep;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>alert("اتنسخ ✅")).catch(()=>{const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");alert("اتنسخ ✅")}catch(e){}a.remove()})}
+function confetti(){const c=$("#cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const P=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,v:2+Math.random()*4,r:3+Math.random()*5,c:["#39ff88","#22d3ee","#ffd23f","#a855f7","#ff3b5c"][Math.random()*5|0]}));let f=0;(function a(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.y+=p.v;p.x+=Math.sin(p.y/30);x.fillStyle=p.c;x.fillRect(p.x,p.y,p.r,p.r*1.6)});if(++f<260)requestAnimationFrame(a);else x.clearRect(0,0,c.width,c.height)})()}
+window.addEventListener("beforeunload",e=>{if(S&&!S.done&&S.start){e.preventDefault();e.returnValue=""}});
+(()=>{const o=load();if(o&&o.done&&o.endedAt&&Date.now()-o.endedAt<36e5){S=o;results(false)}else home()})();
+</script></body></html>
